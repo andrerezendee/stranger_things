@@ -50,3 +50,30 @@ gsap.from (".secaoObrigado ul li", {
     scrub: true
   }
 })
+
+// animação footer
+
+gsap.from ("footer", {
+  y:-200,
+  immediateRender: false,
+  scrollTrigger: {
+    trigger: "footer",
+    scrub: true,
+    invalidateOnRefresh: true,
+    end: "100% 100%"
+  }
+})
+
+// texto animado
+
+const split = SplitText.create(".textoSplit", {
+  type: "lines, words, chars",
+  mask: "lines"
+});
+
+gsap.from(split.chars, {
+  y: 40,
+  opacity: 0,
+  duration: 0.3,
+  stagger: .03
+});

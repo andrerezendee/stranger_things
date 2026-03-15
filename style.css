@@ -210,6 +210,9 @@ h2{
 .secaoObrigado {
   flex-direction: column;
   align-items: center;
+  z-index: 2;
+  position: relative;
+  background-color: #0C0102;
 
   ul {
     display: flex;
@@ -226,6 +229,7 @@ footer {
   flex-direction: column;
   background-image: url(assets/3_2.webp);
   background-size: cover;
+  z-index: 1;
   /* background-position: center; */
 
   .conteudoFooter {
