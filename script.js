@@ -5,6 +5,9 @@ ScrollSmoother.create({
   effects: true,
 })
 
+// animação da pagina
+
+function animarpagina(){
 // animações hero
 gsap.from (".hero", {
   opacity: 0,
@@ -66,14 +69,59 @@ gsap.from ("footer", {
 
 // texto animado
 
-const split = SplitText.create(".textoSplit", {
-  type: "lines, words, chars",
-  mask: "lines"
+// seleciono todos os elementos da pagina que tem a classe .textoSplit
+
+const grupoTextoSplit = document.querySelectorAll(".textoSplit");
+
+// animo cada elemento desse grupamento com forEach
+
+grupoTextoSplit.forEach((textoUnicoSplit) => {
+
+  const split = SplitText.create(textoUnicoSplit, {
+    type: "lines, words, chars",
+    mask: "lines",
+  });
+
+  gsap.from(split.chars, {
+    y: 40,
+    opacity: 0,
+    duration: 0.3,
+    stagger: .03,
+    scrollTrigger: {
+      trigger: textoUnicoSplit,
+    }
+
+  });
+
 });
 
-gsap.from(split.chars, {
-  y: 40,
-  opacity: 0,
-  duration: 0.3,
-  stagger: .03
+}
+
+
+
+// preloader cria uma timeline para os efeitos serem em sequencia
+
+const tl = gsap.timeline({
+  onComplete() {
+    animarpagina()
+    gsap.to("#preloader", {
+      opacity: 0,
+      onComplete() {
+        gsap.to("#preloader", {
+          display: "none"
+        })
+      }
+    })
+  }
 });
+
+tl.to("#preloader path", {
+  strokeDashoffset: 0,
+  duration: 1,
+})
+
+tl.to("#preloader path", {
+  fill: "rgb(168, 19, 19)",
+  duration: 0.5,
+  strokeDashoffset: 0
+})
